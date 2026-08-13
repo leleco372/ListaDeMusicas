@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Músicas</title>
+    <link rel="stylesheet"  href="{{url_for('static', filename='lista_musica.css')}}">
+</head>
+<body>
+    <h1>Músicas cadastradas: - {{titulo}}</h1>
+    <table>
+        <tr>
+            <th>música</th>
+            <th>artista / grupo / banda</th>
+            <th>gênero</th>
+        </tr>
+
+        <tr>
+            <td>Bohemian Rhapsody</td>
+            <td>Queen</td>
+            <td>Rock</td>
+        </tr>
+        <tr>
+            <td>Imagine</td>
+            <td>John Lennon</td>
+            <td>Pop</td>
+        </tr>
+        <tr>
+            <td>Smells Like Teen Spirit</td>
+            <td>Nirvana</td>
+            <td>Grunge</td>
+        </tr>
+    </table>
+</body>
+</html>
