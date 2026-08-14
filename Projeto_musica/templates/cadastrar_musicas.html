@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Música</title>
-    <link rel="stylesheet"  href="{{url_for('static', filename='index.css')}}">
+    <link rel="stylesheet"  href="{{url_for('static', filename='bootstrap.css')}}">
 </head>
 </head>
 <body>
-    <div class="receber_musicas">
-    <form method="post" action="/adicionar">
-        <label>Nome da música</label>
-        <input type="text" name="txtNome">
+        <form method="post" action="/adicionar">
+            <fieldset>
 
-        <label>Artista / Grupo / Banda</label>
-        <input type="text" name="txtArtista">
+                <legend>Preencha os dados da música:</legend>
+                
+                <div class= "mb-3">
+                <label for="txtNome" class="mb-3">Nome da música</label>
+                <input type="text" name="txtNome" id="txtNome" class="form-control">
+                </div>
 
-        <label>Gênero</label>
-        <input type="text" name="txtGenero">
+                <div class= "mb-3">
+                <label for="txtArtista" class="mb-3">Artista / Grupo / Banda</label>
+                <input type="text" name="txtArtista" id="txtArtista" class="form-control">
+                </div>
 
-        <button type="submit">Cadastrar musica</button>
-
-    </form>
-    </div>
+                <div class= "mb-3">
+                <label for="txtGenero" class="mb-3">Gênero</label>
+                <input type="text" name="txtGenero" id="txtGenero" class="form-control">
+                </div>
+                <div class= "mb-3">
+                <button type="submit" class="btn btn-success">Cadastrar musica</button>
+                </div>
+            </fieldset>
+        </form>
 </body>
 </html>

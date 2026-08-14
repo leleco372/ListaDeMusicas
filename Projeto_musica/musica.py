@@ -37,8 +37,11 @@ def adicionarMusica():
     genero=request.form['txtGenero']
     #inserindo os dados na nova música e adicionando na lista
     novaMusica=Musica(nome, artista, genero)
-    lista.append(novaMusica)
-    return redirect('/')
+    if nome !="":
+        lista.append(novaMusica)
+        return redirect('/')
+    else:
+        return redirect('/cadastrar_musicas')
 
 @app.route("/login")
 def login():
