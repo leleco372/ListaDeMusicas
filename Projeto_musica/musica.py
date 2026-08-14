@@ -1,5 +1,5 @@
 #não quero inportar tudo da biblioteca flask
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 #self é como o this do java, ele referencia o objeto que está chamando o método
 
 class Musica:
@@ -17,6 +17,8 @@ musica05=Musica("rockstar", "Post Malone", "hip-hop")
 lista = [musica01, musica02, musica03, musica04, musica05]
 
 app = Flask(__name__)
+
+app.secret_key = "senhasupersecreta"
 
 
 @app.route('/')
@@ -36,6 +38,25 @@ def adicionarMusica():
     #inserindo os dados na nova música e adicionando na lista
     novaMusica=Musica(nome, artista, genero)
     lista.append(novaMusica)
+    return redirect('/')
+
+@app.route("/login")
+def login():
+    return render_template('login.html')
+
+@app.route("/autenticar", methods=["POST",])
+def autenticar():
+    if request.form["txtSenha"]== "admin":
+        #session é basicamende um divisor de águas, ele vai criar uma sessão para o usuário que está logando, e vai armazenar o nome do usuário na sessão. )
+        session["usuario_logado"] = request.form["txtUsuario"]
+
+        return redirect('/')
+    else: 
+        return redirect('/login')
+
+@app.route("/sair")
+def sair():
+    session["usuario_logado"] = None
     return redirect('/')
 
 

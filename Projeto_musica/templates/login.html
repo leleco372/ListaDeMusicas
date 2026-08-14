@@ -8,14 +8,17 @@
 </head>
 </head>
 <body>
-    <form>
-        <label>Usuário</label>
+    <form method="post" action="/autenticar">
+        <fieldset>
+            <legend>Preencha seus dados:</legend>
+            <label>Usuário</label>
         <input type="text" name="txtUsuario">
 
         <label>Senha</label>
         <input type="password" name="txtSenha">
 
         <button type="submit">Entrar</button>
+        </fieldset>
     </form>
 </body>
 </html>
