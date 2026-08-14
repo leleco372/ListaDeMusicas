@@ -1,0 +1,22 @@
+.tabela_musica table {
+    border: 1px solid black;
+}
+.tabela_musica td {
+    border: 1px solid black;
+}
+.tabela_musica th {
+    border: 1px solid black;
+}
+
+.receber_musicas form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+}
+.receber_musicas input {
+    margin: 10px;
+    padding: 10px;
+    font-size: 20px;
+}

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Músicas</title>
-    <link rel="stylesheet"  href="{{url_for('static', filename='lista_musica.css')}}">
+    <link rel="stylesheet"  href="{{url_for('static', filename='index.css')}}">
 </head>
 <body>
+    <div class="tabela_musica">
     <h1>Músicas cadastradas: - {{titulo}}</h1>
     <table>
         <tr>
@@ -21,11 +22,12 @@
         </tr>
         {% for musica in musicas%}
         <tr>
-            <td>{{musica}}</td>
-            <td></td>
-            <td></td>
+            <td>{{musica.nome}}</td>
+            <td>{{musica.artista}}</td>
+            <td>{{musica.genero}}</td>
         </tr>
         {% endfor %}
     </table>
+    </div>
 </body>
 </html>

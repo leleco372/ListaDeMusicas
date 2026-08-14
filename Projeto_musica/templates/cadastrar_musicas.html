@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Música</title>
+    <link rel="stylesheet"  href="{{url_for('static', filename='index.css')}}">
+</head>
+</head>
+<body>
+    <div class="receber_musicas">
+    <form method="post" action="/adicionar">
+        <label>Nome da música</label>
+        <input type="text" name="txtNome">
+
+        <label>Artista / Grupo / Banda</label>
+        <input type="text" name="txtArtista">
+
+        <label>Gênero</label>
+        <input type="text" name="txtGenero">
+
+        <button type="submit">Cadastrar musica</button>
+
+    </form>
+    </div>
+</body>
+</html>
