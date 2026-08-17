@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet"  href="{{url_for('static', filename='bootstrap.css')}}">
+    <title>{{ titulo }}</title>
+    <!-- url_for serve para gerar urls mais dinâmicas, primeiro fala o nome da pasta e depois o nome do arquivo -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
 </head>
-</head>
+
 <body>
-    <div class="container">
-    <form method="post" action="/autenticar">
-        <fieldset>
-            <legend>Preencha seus dados:</legend>
-            <div class= "mb-3">
-            <label for="txtUsuario" class="mb-3">Usuário:</label>
-            <input type="text" name="txtUsuario" id="txtUsuario" class="form-control">
-            </div>
-            <div class= "mb-3">
-            <label for="txtSenha" class="mb-3">Senha:</label>
-            <input type="password" name="txtSenha" id="txtSenha" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Entrar</button>
-        </fieldset>
-    </form>
+
+    <div class="container mt-5">
+        <!-- Mensagem de sucesso ou erro, código do Flask-->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="list-unstyled" id="message">
+                    {% for message in messages %}
+                        <li class="alert alert-danger">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="/autenticar">
+
+            <fieldset class="border p-4 rounded">
+                <legend class="float-none w-auto px-2">
+                    Preencha seus dados:
+                </legend>
+
+                <div class="mb-3">
+                    <label for="txtUsuario" class="form-label">Usuário:</label>
+                    <input type="text"
+                           name="txtUsuario"
+                           id="txtUsuario"
+                           class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtSenha" class="form-label">Senha:</label>
+                    <input type="password"
+                           name="txtSenha"
+                           id="txtSenha"
+                           class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    Entrar
+                </button>
+
+            </fieldset>
+
+        </form>
+
     </div>
+
 </body>
 </html>
+
+  
