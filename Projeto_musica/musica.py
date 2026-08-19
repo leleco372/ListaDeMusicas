@@ -1,5 +1,8 @@
 #não quero inportar tudo da biblioteca flask
 from flask import Flask, render_template, request, redirect, session, flash, url_for
+
+from flask_sqlalchemy import SQLAlchemy
+
 #self é como o this do java, ele referencia o objeto que está chamando o método
 class Usuario:
     def __init__(self, nome, senha, gmail):
