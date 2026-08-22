@@ -10,7 +10,7 @@
         </ul>
     {% endif %}
     {% endwith %}
-        <form method="post" action="/adicionar">
+        <form method="post" action="{{url_for('atualizar')}}">
             <fieldset>
                 <div class= "mb-3">
                 <label for="txtNome" class="mb-3">Nome da música</label>

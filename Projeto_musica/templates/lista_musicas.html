@@ -19,6 +19,7 @@
             <th>música</th>
             <th>artista / grupo / banda</th>
             <th>gênero</th>
+            <th>Ações</th>
         </tr>
     </thead>
 
@@ -28,6 +29,7 @@
                 <td>{{musica.nome}}</td>
                 <td>{{musica.artista}}</td>
                 <td>{{musica.genero}}</td>
+                <td><a href="{{url_for('editar')}}">Editar</a></td>
             </tr>
             {% endfor %}
         </tbody>
