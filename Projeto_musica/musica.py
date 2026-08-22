@@ -1,51 +1,45 @@
-#não quero inportar tudo da biblioteca flask
 from flask import Flask, render_template, request, redirect, session, flash, url_for
-
 from flask_sqlalchemy import SQLAlchemy
+from config import Config
 
-#self é como o this do java, ele referencia o objeto que está chamando o método
-class Usuario:
-    def __init__(self, nome, senha, gmail):
-        self.nome=nome
-        self.senha=senha
-        self.gmail=gmail
-
-usuario01=Usuario("Leandro", "admin", "leandro@exemplo.com")
-usuario02=Usuario("João", "1234", "joao@exemplo.com")
-usuario03=Usuario("Maria", "abcd", "maria@exemplo.com")
-
-#criando um dicionário de usuários, onde a chave é o gmail e o valor é o objeto usuário
-usuarios = {
-    usuario01.gmail: usuario01,
-    usuario02.gmail: usuario02,
-    usuario03.gmail: usuario03
-}
-
-
-class Musica:
-    def __init__(self, nome, artista, genero):
-        self.nome=nome
-        self.artista=artista
-        self.genero=genero
-
-musica01=Musica("despacito", "Luis Fonsi", "pop")
-musica02=Musica("shape of you", "Ed Sheeran", "pop")
-musica03=Musica("bad guy", "Billie Eilish", "pop")
-musica04=Musica("blinding lights", "The Weeknd", "pop")
-musica05=Musica("rockstar", "Post Malone", "hip-hop")
-
-lista = [musica01, musica02, musica03, musica04, musica05]
 
 app = Flask(__name__)
 
-app.secret_key = "senhasupersecreta"
+# Carrega as configurações do arquivo config.py
+app.config.from_object(Config)
+
+# Só depois cria o SQLAlchemy
+db = SQLAlchemy(app)
+
+with app.app_context():
+    db.engine.connect()
+    
+class Musica(db.Model):
+    __tablename__ = 'musica'
+    id  = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(50), nullable=False)
+    artista = db.Column('cantor_banda', db.String(50), nullable=False)
+    genero = db.Column(db.String(50), nullable=False)
+
+class Usuario(db.Model):
+    __tablename__ = 'usuario'
+
+    id_usuario = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome_usuario = db.Column(db.String(50), nullable=False)
+    login_usuario = db.Column(db.String(20), nullable=False)
+    senha_usuario = db.Column(db.String(15), nullable=False)
+
+    def __repr__(self):
+        return '<Name %r>' % self.nome_usuario
 
 
 @app.route('/')
 def listarMusicas():
     if  "usuario_logado" not in session or session["usuario_logado"] == None:
         return redirect(url_for('login'))
-    return render_template('lista_musicas.html', musicas=lista, titulo="Lista de Músicas")
+    musicas = Musica.query.all()
+
+    return render_template('lista_musicas.html', musicas=musicas, titulo="Lista de Músicas")
 
 @app.route("/cadastrar_musicas")
 def cadastrarMusica():
@@ -61,9 +55,14 @@ def adicionarMusica():
     artista=request.form['txtArtista']
     genero=request.form['txtGenero']
     #inserindo os dados na nova música e adicionando na lista
-    novaMusica=Musica(nome, artista, genero)
+    novaMusica = Musica(
+    nome=nome,
+    artista=artista,
+    genero=genero
+)
     if nome !="":
-        lista.append(novaMusica)
+        db.session.add(novaMusica)
+        db.session.commit()
         return redirect(url_for('listarMusicas'))
     else:
         return redirect(url_for('cadastrarMusica'))
@@ -74,12 +73,13 @@ def login():
 
 @app.route("/autenticar", methods=["POST",])
 def autenticar():
-    if request.form["txtUsuario"] in usuarios:
-        usuarioEncontrado = usuarios[request.form["txtUsuario"]]
-        if request.form["txtSenha"] == usuarioEncontrado.senha:
+
+    usuario= Usuario.query.filter_by(login_usuario=request.form['txtLogin']).first()
+    if usuario:
+        if request.form["txtSenha"] == usuario.senha_usuario:
     #session é basicamende um divisor de águas, ele vai criar uma sessão para o usuário que está logando, e vai armazenar o nome do usuário na sessão. )
-            session["usuario_logado"] = request.form["txtUsuario"]
-            flash(f"usuário: {usuarioEncontrado.nome} logado com sucesso!")
+            session["usuario_logado"] = usuario.login_usuario
+            flash(f"usuário: {usuario.login_usuario} logado com sucesso!")
             return redirect(url_for('listarMusicas'))
         else:
             flash("senha incorreta!")

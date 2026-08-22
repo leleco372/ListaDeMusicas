@@ -22,7 +22,7 @@
             {% endif %}
         {% endwith %}
 
-        <form method="post" action="/autenticar">
+        <form method="post" action="{{ url_for('autenticar') }}">
 
             <fieldset class="border p-4 rounded">
                 <legend class="float-none w-auto px-2">
@@ -30,10 +30,10 @@
                 </legend>
 
                 <div class="mb-3">
-                    <label for="txtUsuario" class="form-label">Usuário:</label>
+                    <label for="txtLogin" class="form-label">Usuário:</label>
                     <input type="text"
-                           name="txtUsuario"
-                           id="txtUsuario"
+                           name="txtLogin"
+                           id="txtLogin"
                            class="form-control">
                 </div>
 
